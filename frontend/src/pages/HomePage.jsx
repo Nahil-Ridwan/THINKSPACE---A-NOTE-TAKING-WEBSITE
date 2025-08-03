@@ -37,7 +37,7 @@ const HomePage = () => {
 
       {IsRateLimited && <RateLimitUI />}
       <div className="max-w-7xl mx-auto p-4 mt-6 rounded-3xl">
-          { loading && <div className="text-center text-primary py-10">Loading...</div>}
+          { loading && <div className="text-center text-primary py-10">LOADING...</div>}
 
           {notes.length === 0 && !IsRateLimited && <NotesNotFound/>}
 
