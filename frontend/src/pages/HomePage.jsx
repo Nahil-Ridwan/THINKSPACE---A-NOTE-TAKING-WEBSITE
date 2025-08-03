@@ -4,6 +4,7 @@ import RateLimitUI from "../components/RateLimitUI";
 import  api from "../lib/axios";
 import NoteCard from "../components/NoteCard";
 import NotesNotFound from "../components/NotesNotFound";
+import toast from 'react-hot-toast';
 
 const HomePage = () => {
   const [IsRateLimited, setIsRateLimited] = useState(false);

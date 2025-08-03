@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from "react-router";
 import { PenSquareIcon,Trash2Icon } from 'lucide-react';
-import formatDate from "../lib/utils";
+import formatDate from "../lib/utils.js";
 import api from "../lib/axios"
 import toast from "react-hot-toast"
 
@@ -30,7 +30,7 @@ const NoteCard = ({note,setNotes}) => {
             <p className="text-base-content/70 line-clamp-3">{note.content}</p>
             <div className="card-actions justify-between items-center mt-4">
                 <span className="text-sm text-base-content/60">
-                    {formatDate(new Date(note.createdAt))};
+                    {formatDate(new Date(note.createdAt))}
                 </span>
                 <div className="flex items-center gap-1">
                     <PenSquareIcon className="size-4"/>
