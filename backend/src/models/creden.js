@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
-// 1 - CREATE A SCHEMA
-const noteSchema = new mongoose.Schema(
+// CREDEN
+const credenSchema = new mongoose.Schema(
 {
-    title : { 
+    name : {
+        "type" : String,
+    },
+    email : { 
         "type" : String,
         "required" : true,
     },
-    content : {
+    password : {
         "type" : String,
         "required" : true,
     },
@@ -15,8 +18,5 @@ const noteSchema = new mongoose.Schema(
 {timestamps : true} // CREATED AND UPSATED
 );
 
-
-// 2 - MODEL BASED ON THAT SCHEMA
-
-const Note = mongoose.model("Note",noteSchema);
-export { Note };
+const Creden = mongoose.model("Creden",credenSchema);
+export { Creden };

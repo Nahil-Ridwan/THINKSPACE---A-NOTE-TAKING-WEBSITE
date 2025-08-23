@@ -1,4 +1,48 @@
-import Note from "../models/note.js";
+import {Note} from "../models/note.js"; //LOGIN
+import {Creden} from "../models/creden.js"; //REGISTER
+
+// LOGIN
+export async function login(req, res) {
+    try {
+        const { email, password } = req.body;
+        const user = await Creden.findOne({email});
+
+        if(user && user.password === password) {
+            return res.status(201).json({ message: "LOGIN SUCCESSFUL"});
+        }else if(!user){
+            return res.status(404).json({ message: "USER NOT FOUND"});
+        } else if (user && user.password !== password) {
+            return res.status(401).json({ message: "WRONG PASSWORD"});
+        }
+    }catch (error) {
+        console.error("ERROR IN LOGIN CONTROLLER", error);
+        res.status(500).json({ message: "SERVER ERROR" });
+    }
+}
+
+
+export async function register(req, res) {
+    try {
+        const { name, email, password } = req.body;
+        // Check if user already exists
+        const existingUser = await Creden.findOne({ email });
+        console.log("EXISTING USER",existingUser);
+        if (existingUser) {
+            return res.status(409).json({ message: "User already exists" });
+             // 409 Conflict
+        }
+
+        // Create and save new user
+        const newUser = new Creden({ name, email, password });
+        const savedUser = await newUser.save();
+
+        return res.status(201).json({ message: "User registered successfully", user: savedUser }); // 201 Created
+    } catch (error) {
+        console.error("Error in register controller:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
 
 export async function getnote(_, res)  {
     try {

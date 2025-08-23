@@ -1,5 +1,6 @@
 import express from "express";
-import routernot from "./routes/noteroute.js";
+import notesrouter from "./routes/noteroute.js";
+import credensrouter from "./routes/credenroute.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 import ratelimiter from "./middleware/Ratelimiter.js";
@@ -27,7 +28,8 @@ app.use(ratelimiter);
 });*/
 
 
-app.use("/api/notes",routernot);
+app.use("/api/notes",notesrouter);
+app.use("/api/credens",credensrouter);
 
 //FOR DEPLOYMENT
   const __dirname = path.resolve();

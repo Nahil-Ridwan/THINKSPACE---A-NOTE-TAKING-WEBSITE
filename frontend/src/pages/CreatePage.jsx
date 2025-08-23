@@ -22,7 +22,7 @@ const CreatePage = () => {
     try {
       await api.post("/notes",{title,content});
       toast.success("NOTE CREATED");
-      navigate("/");
+      navigate("/homepage");
     } catch (error) {
       console.log("error creating Note",error)
       if(error.response.status === 429)
@@ -39,7 +39,7 @@ const CreatePage = () => {
     <div className="min-h-screen bg-base-200">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto ">
-          <Link to={"/"} className ="btn btn-ghost mb-6">
+          <Link to={"/homepage"} className ="btn btn-ghost mb-6">
              <ArrowLeftIcon className="size-5"/>
              BACK TO NOTES
           </Link>
