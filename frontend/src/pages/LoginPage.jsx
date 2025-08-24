@@ -1,6 +1,6 @@
 
 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import {Link,useNavigate} from "react-router";
 import  toast from 'react-hot-toast';
 import { Eye } from "lucide-react";
@@ -18,16 +18,17 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate login process
-    try{
-       const loginSuccess = await api.post("/credens/login",{email, password});
-       if (loginSuccess.status === 201) {
-         toast.success('LOGIN SUCCESSFUL');
-         navigate("/homepage");
-       }
-  
-  
-  } catch (error) {
+    // Login process: do NOT send Authorization header for login
+    try {
+      const loginSuccess = await api.post("/credens/login", { email, password });
+      if (loginSuccess.status === 200) {
+        toast.success('LOGIN SUCCESSFUL');
+        // Save token to localStorage or state for future requests
+        const { token } = loginSuccess.data;
+        localStorage.setItem('token', token);
+        navigate("/homepage");
+      }
+    } catch (error) {
       const status = error.response?.status;
       if (status === 401) {
         toast.error("WRONG PASSWORD");
@@ -36,14 +37,25 @@ export default function LoginPage() {
       } else {
         toast.error("SERVER ERROR");
       }
-      
       console.error("ERROR IN LOGIN CONTROLLER", error);
-   
-    setIsLoading(false);
-     }finally {
-    setIsLoading(false);
-  }
-};
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // HOTKEY FOR LOGIN
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSubmit(e);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleSubmit]);
 
   return (
     <div className="flex flex-col min-h-screen justify-center">
@@ -54,7 +66,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Form */}
-        <div className="bg-base-300 w-full p-8 rounded-xl shadow-md">
+        <div className="w-full p-8 rounded-xl card bg-black/20 backdrop-blur-md shadow-lg border border-white/10">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-primary mb-2">
@@ -71,7 +83,7 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-5 pr-3 py-3 border border-gray-600 bg-base-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
+                  className="w-full pl-5 pr-3 py-3  bg-black/5 backdrop-blur-md shadow-lg border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
                   placeholder="ENTER YOUR EMAIL"
                 />
               </div>

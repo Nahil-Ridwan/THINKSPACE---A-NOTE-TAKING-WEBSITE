@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import { ArrowLeftIcon } from "lucide-react";
 import {Link, useNavigate} from "react-router";
 import toast from "react-hot-toast";
@@ -10,8 +10,7 @@ const CreatePage = () => {
   const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
 
     if(!title.trim() || !content.trim())
     {
@@ -20,30 +19,56 @@ const CreatePage = () => {
     }
     setLoading(true);
     try {
-      await api.post("/notes",{title,content});
+      const token = localStorage.getItem('token');
+      await api.post("/notes", { title, content }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       toast.success("NOTE CREATED");
       navigate("/homepage");
     } catch (error) {
-      console.log("error creating Note",error)
-      if(error.response.status === 429)
-      {
-        toast.error("SLOW DOWN!",{duration : 4000 , icon:"😶‍🌫️",})
+      console.log("error creating Note", error);
+      if (error.response && error.response.status === 429) {
+        toast.error("SLOW DOWN!", { duration: 4000, icon: "😶‍🌫️" });
       }
+    } finally {
+      setLoading(false);
     }
-      finally
-      {
-        setLoading(false);
-      }
   }
+
+  // HOTKEY FOR SUBMIT
+  useEffect(() => {
+      const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+          handleSubmit();
+        }
+      };
+  
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [handleSubmit]);
+
+    // HOTKEY TO BACK TO HOMEPAGE
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+          if (e.key === 'Escape') {
+            navigate("/homepage");
+          }
+        };
+    
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }, [navigate]);
+
+
   return ( 
-    <div className="min-h-screen bg-base-200">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto ">
           <Link to={"/homepage"} className ="btn btn-ghost mb-6">
              <ArrowLeftIcon className="size-5"/>
              BACK TO NOTES
           </Link>
-          <div className="card bg-base-100">
+          <div className="card bg-black/15 backdrop-blur-md shadow-lg border border-white/10 rounded-xl">
               <div className="card-body">
                   <h2 className="card-title text-2xl mb-4 text-primary">CREATE NEW NOTE</h2>
                   <form onSubmit={handleSubmit}>
@@ -53,7 +78,7 @@ const CreatePage = () => {
                         </label>
                         <input type="text"  
                         placeholder="NOTE TITLE" 
-                        className="input input-bordered" 
+                        className="input bg-black/5 backdrop-blur-md shadow-lg border border-white/10" 
                         value={title} 
                         onChange={(e) => setTitle(e.target.value)}/>
                     </div>
@@ -63,7 +88,7 @@ const CreatePage = () => {
                       <label className="label">
                           <span className="label-text text-primary">CONTENT</span>
                       </label>
-                      <textarea className="textarea textarea-bordered h-32"
+                      <textarea className="textarea bg-black/5 backdrop-blur-md shadow-lg border border-white/10 h-32"
                         placeholder="ENTER YOUR CONTENT"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}/>

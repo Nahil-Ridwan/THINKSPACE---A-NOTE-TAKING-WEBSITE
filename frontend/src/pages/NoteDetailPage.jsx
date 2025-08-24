@@ -29,18 +29,36 @@ const NoteDetailPage = () => {
     fetchNote();
   },[id])
 
+  
+
   const handleDelete = async () => {
     if(!window.confirm("SURE TO DELETE")) return;
 
     try {
-      await api.delete(`/notes/${id}`)
+      const token = localStorage.getItem('token');
+      await api.delete(`/notes/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       toast.success("NOTE DELETED")
-      navigate("/")
+      navigate("/homepage")
     } catch (error) {
       console.log("error in the handledelete at NoteDetailPage",error)
       toast.error("COULD'NT DELETE")
     }
   };
+
+  //HOTKEY FOR DELETE
+  useEffect(() => {
+  const handleKeyDown = (e) => {
+    if (e.key === 'Delete') {
+      handleDelete();
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+  return () => window.removeEventListener('keydown', handleKeyDown);
+}, [handleDelete]);
+
   const handleSave = async () => {
     if(!note.title.trim() || !note.content.trim())
     {
@@ -51,16 +69,44 @@ const NoteDetailPage = () => {
     setSaving(true)
 
     try {
-      await api.put(`/notes/${id}`,note)
+      const token = localStorage.getItem('token');
+      await api.put(`/notes/${id}`, note, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       toast.success("CHANGES SAVED")
-      navigate("/")
+      navigate("/homepage")
     } catch (error) {
-      console.log("error in handlesave",error)
+      console.log("error in handlesave", error)
       toast.error("CHNAGES NOT SAVED")
-    } finally{
+    } finally {
       setSaving(false)
     }
   }
+
+  // HOTKEY FOR SAVE
+    useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        handleSave();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleSave]);
+
+  //HOTKEY TO BACK TO HOMEPAGE
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        navigate("/homepage");
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
+
 
   if(loading)
   {
@@ -71,8 +117,10 @@ const NoteDetailPage = () => {
     );
   }
 
+
+
   return (
-    <div className="min-h-screen bg-base-200">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
          <div className="flex items-center justify-between mb-6">
@@ -85,7 +133,7 @@ const NoteDetailPage = () => {
              DELETE NOTE
            </button>
          </div>
-           <div className="card bg-base-100">
+           <div className="card bg-black/15 backdrop-blur-md shadow-lg border border-white/10 rounded-xl">
               <div className="card-body">
                 <div className="form-control mb-4">
                     <label className="label">
@@ -94,7 +142,7 @@ const NoteDetailPage = () => {
                     <input 
                     type="text" 
                     placeholder="NOTE TITLE" 
-                    className="input input-bordered" 
+                    className="input bg-black/5 backdrop-blur-md shadow-lg border border-white/10" 
                     value={note.title}
                     onChange={(e) => setNote({...note,title:e.target.value})}/>
                 </div>
@@ -105,12 +153,12 @@ const NoteDetailPage = () => {
                     </label>
                     <textarea 
                     placeholder="WRITE YOUR NOTE HERE..." 
-                    className="textarea textarea-bordered h-32" 
+                    className="textarea bg-black/5 backdrop-blur-md shadow-lg border border-white/10 h-32" 
                     value={note.content}
                     onChange={(e) => setNote({...note,content:e.target.value})}/>
                 </div>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary" disabled={saving} onClick={handleSave}>
+                  <button className="btn btn-primary " disabled={saving} onClick={handleSave}>
                       {saving ? "SAVING..." : "SAVE CHANGES"}
                   </button>
                 </div>

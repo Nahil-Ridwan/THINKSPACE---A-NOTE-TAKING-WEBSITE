@@ -8,12 +8,15 @@ import toast from "react-hot-toast"
 const NoteCard = ({note,setNotes}) => {
     const handleDelete = async(e,id) =>{
         e.preventDefault(); // NO NAVIGATION
+        const token = localStorage.getItem('token');
         if(!window.confirm("SURE TO DELETE?")) return;
 
         try {
-            await api.delete(`/notes/${id}`);
-            setNotes((prev) => prev.filter((note) => note._id !==id)); // REMOVE DELETED ONES FROM UI
-            toast.success("NOTE DELETED")
+            await api.delete(`/notes/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setNotes((prev) => prev.filter((note) => note._id !== id)); // REMOVE DELETED ONES FROM UI
+            toast.success("NOTE DELETED");
         } catch (error) {
             console.log("error in handledelete",error);
             toast.error("COULD'NT DELETE")
@@ -21,9 +24,9 @@ const NoteCard = ({note,setNotes}) => {
     }
   return (
     <Link to={`/note/${note._id}`}
-        className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-t-4 border-solid border-[#ff6a00]"
+        className="card backdrop-blur-md shadow-lg borderrounded-xl hover:shadow-lg transition-all duration-200 border-t-4 border-solid border-[#ff6a00] w-[22rem]"
     >
-        <div className="card-body bg-base-300 rounded-xl h-56"> 
+        <div className="card-body bg-black/15 backdrop-blur-md shadow-lg border border-white/10 rounded-xl h-56">
             <div className="flex justify-center w-full">
               <h3 className="card-title text-primary text-center">{note.title}</h3>
             </div>

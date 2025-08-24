@@ -1,18 +1,26 @@
 import {Note} from "../models/note.js"; //LOGIN
 import {Creden} from "../models/creden.js"; //REGISTER
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // LOGIN
 export async function login(req, res) {
     try {
-        const { email, password } = req.body;
+        const email = req.body.email;
         const user = await Creden.findOne({email});
 
-        if(user && user.password === password) {
-            return res.status(201).json({ message: "LOGIN SUCCESSFUL"});
-        }else if(!user){
+        if(!user){
             return res.status(404).json({ message: "USER NOT FOUND"});
-        } else if (user && user.password !== password) {
+        } else if (user && !await bcrypt.compare(req.body.password, user.password)) {
             return res.status(401).json({ message: "WRONG PASSWORD"});
+        }
+        else if(user && await bcrypt.compare(req.body.password, user.password)) {
+            const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
+            return res.status(200).json({ token, message: "LOGIN SUCCESSFUL" });
+
         }
     }catch (error) {
         console.error("ERROR IN LOGIN CONTROLLER", error);
@@ -23,7 +31,8 @@ export async function login(req, res) {
 
 export async function register(req, res) {
     try {
-        const { name, email, password } = req.body;
+        const { name, email } = req.body;
+        const password = await bcrypt.hash(req.body.password, 10);
         // Check if user already exists
         const existingUser = await Creden.findOne({ email });
         console.log("EXISTING USER",existingUser);
@@ -44,9 +53,10 @@ export async function register(req, res) {
 }
 
 
-export async function getnote(_, res)  {
+export async function getnote(req, res)  {
     try {
-        const notes = await Note.find().sort({createdAt : -1});
+        const email = req.user && req.user.email ? req.user.email : null;
+        const notes = await Note.find({ email }).sort({ createdAt: -1 });
         res.status(200).json(notes);
     } catch (error) {
         console.error("ERROR IN GETNOTE CONTROLLER",error);
@@ -68,16 +78,19 @@ export async function getonenote(req, res)   {
 
 export async function postnote(req, res)  {
     try {
-        const {title,content} = req.body;
-        const note = new Note({title,content});
-
+        const { title, content } = req.body;
+        // req.user may be the payload object, or { email: ... } if set by jwt.verify
+        const email = req.user && req.user.email ? req.user.email : null;
+        if (!email) {
+            return res.status(401).json({ message: "UNAUTHORIZED: NO EMAIL IN TOKEN" });
+        }
+        const note = new Note({ email, title, content });
+        console.log("NEW NOTE", note);
         const savednote = await note.save();
-        res.status(201).json(savednote)    
-
+        res.status(201).json(savednote);
     } catch (error) {
-        console.error("ERROR IN POSTNOTE CONTROLLER",error);
-        res.status(500).json({message : "SERVER ERROR"});
-
+        console.error("ERROR IN POSTNOTE CONTROLLER", error);
+        res.status(500).json({ message: "SERVER ERROR" });
     }
 }
 

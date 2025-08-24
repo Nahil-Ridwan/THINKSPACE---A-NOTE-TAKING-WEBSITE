@@ -1,5 +1,6 @@
 import React from 'react'
 import {Route, Routes} from "react-router";
+import "./background.css"
 
 import HomePage from "./pages/HomePage.jsx";
 import Createpage from "./pages/CreatePage";
@@ -7,10 +8,9 @@ import NoteDetailPage from "./pages/NoteDetailPage";
 import toast from "react-hot-toast";
 import LoginPage from './pages/LoginPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
-
 const App = () => {
   return (
-    <div className="relative h-full w-full">
+    <div className="background">
       <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_60%,#dc783d_100%)]" />
       <Routes>
         <Route path = "/" element={<LoginPage/>}/>

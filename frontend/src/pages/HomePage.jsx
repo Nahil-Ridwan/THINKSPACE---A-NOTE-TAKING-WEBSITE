@@ -12,9 +12,12 @@ const HomePage = () => {
   const [loading,setLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     const fetchnotes = async () => {
       try {
-        const res = await api.get("/notes");
+        const res = await api.get("/notes", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         console.log(res.data);
         setNotes(res.data);                           //FETCH SUCCESS
         setIsRateLimited(false);
@@ -44,15 +47,15 @@ const HomePage = () => {
 
           {notes.length > 0 && !IsRateLimited && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-16 pr-16">
-              {notes.map(note => (
+              {notes.map((note,index) => (
                 <div>
-                  <NoteCard key={note._id} note={note} setNotes={setNotes}/>
+                  <NoteCard key={index} note={note} setNotes={setNotes}/>
                 </div>
               ))}
             </div>
           )}
       </div>
-       <footer className="bg-base-300 text-center py-4 mt-auto">
+       <footer className=" bg-black/15 backdrop-blur-md shadow-lg border border-white/10 text-center py-4 mt-auto">
           <p className="text-sm text-primary">
            📬 CONTACT: <a href="mailto:nahilpp@gmail.com" className="underline hover:text-primary">nahilpp@gmail.com</a>
          </p>

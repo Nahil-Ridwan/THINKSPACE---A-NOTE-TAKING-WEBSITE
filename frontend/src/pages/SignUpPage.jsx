@@ -55,10 +55,10 @@ export default function SignUpPage() {
         </div>
 
         {/* Login Form */}
-        <div className="bg-base-300 w-full p-8 rounded-xl shadow-md">
+        <div className="bg-black/20 backdrop-blur-md shadow-lg border border-white/10 rounded-xl w-full p-8">
           <form onSubmit={handleSubmit} className="space-y-3">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-primary mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-primary mb-2 ">
                 FULL NAME
               </label>
               <div className="relative">
@@ -72,7 +72,7 @@ export default function SignUpPage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-5 pr-3 py-3 border border-gray-600 bg-base-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
+                  className="w-full pl-5 pr-3 py-3  bg-black/5 backdrop-blur-md shadow-lg border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
                   placeholder="ENTER YOUR NAME"
                 />
               </div>
@@ -93,7 +93,7 @@ export default function SignUpPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-5 pr-3 py-3 border border-gray-600 bg-base-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
+                  className="w-full pl-5 pr-3 py-3  bg-black/5 backdrop-blur-md shadow-lg border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
                   placeholder="ENTER YOUR EMAIL"
                 />
               </div>
@@ -110,7 +110,7 @@ export default function SignUpPage() {
                 <button
                    type="button"
                    onClick={() => setShowPassword(!showPassword)}
-                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-primary focus:outline-none"
+                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400  hover:text-primary focus:outline-none"
                 >
                   <Eye className="w-5 h-5" />
                   
