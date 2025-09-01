@@ -12,6 +12,7 @@ export default function SignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [notepool, setNotepool] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,7 +21,7 @@ export default function SignUpPage() {
     
     // Simulate login process
     try {
-      const response = await api.post("/credens",{name, email, password});
+      const response = await api.post("/credens",{name, notepool, email, password});
       if(response.status===201){
         toast.success("REGISTER SUCCESSFUL");
         navigate("/");
@@ -48,10 +49,10 @@ export default function SignUpPage() {
 
   return (
     <div className="flex flex-col min-h-screen justify-center">
-      <div className="flex flex-col w-full max-w-md space-y-8 justify-center items-center mx-auto px-4">
+      <div className="flex flex-col w-full max-w-md space-y-6 justify-center items-center mx-auto my-auto px-4">
         {/* Logo */}
         <div className="text-center">
-          <h1 className="text-6xl font-bold font-mono text-primary tracking-tight pt-12">THOUGHTSPACE</h1>
+          <h1 className="text-6xl font-bold font-mono text-primary tracking-tight pt-7">THOUGHTSPACE</h1>
         </div>
 
         {/* Login Form */}
@@ -77,6 +78,28 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
+
+
+            <div>
+              <label htmlFor="notepool" className="block text-sm font-medium text-primary mb-2 ">
+                POOL NAME
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ri-mail-line text-gray-400 w-5 h-5 flex items-center justify-center"></i>
+                </div>
+                <input
+                  id="notepool"
+                  name="notepool"
+                  type="text"
+                  value={notepool}
+                  onChange={(e) => setNotepool(e.target.value)}
+                  className="w-full pl-5 pr-3 py-3  bg-black/5 backdrop-blur-md shadow-lg border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
+                  placeholder="ENTER YOUR POOL NAME"
+                />
+              </div>
+            </div>
+
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-primary mb-2">

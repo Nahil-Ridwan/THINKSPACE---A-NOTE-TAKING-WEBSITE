@@ -59,7 +59,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col min-h-screen justify-center">
-      <div className="flex flex-col w-full max-w-md space-y-8 justify-center items-center mx-auto px-4">
+      <div className="flex flex-col w-full max-w-md space-y-8 justify-center items-center my-auto mx-auto px-4">
         {/* Logo */}
         <div className="text-center">
           <h1 className="text-6xl font-bold font-mono text-primary tracking-tight pt-16">THOUGHTSPACE</h1>

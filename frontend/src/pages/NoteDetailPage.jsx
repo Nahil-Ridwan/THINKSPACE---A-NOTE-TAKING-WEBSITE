@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router';
 import api from "../lib/axios";
 import toast from "react-hot-toast";
-import { Container, LoaderIcon, Trash2Icon, ArrowLeftIcon } from 'lucide-react';
+import { LoaderIcon, Trash2Icon, ArrowLeftIcon } from 'lucide-react';
 import {Link} from "react-router"
 
 const NoteDetailPage = () => {
@@ -120,7 +120,7 @@ const NoteDetailPage = () => {
 
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex items-center">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
          <div className="flex items-center justify-between mb-6">

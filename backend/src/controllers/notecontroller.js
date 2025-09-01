@@ -18,7 +18,7 @@ export async function login(req, res) {
             return res.status(401).json({ message: "WRONG PASSWORD"});
         }
         else if(user && await bcrypt.compare(req.body.password, user.password)) {
-            const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
+            const token = jwt.sign({ email: user.email, notepool: user.notepool }, process.env.JWT_SECRET);
             return res.status(200).json({ token, message: "LOGIN SUCCESSFUL" });
 
         }
@@ -31,7 +31,7 @@ export async function login(req, res) {
 
 export async function register(req, res) {
     try {
-        const { name, email } = req.body;
+        const { name, notepool, email } = req.body;
         const password = await bcrypt.hash(req.body.password, 10);
         // Check if user already exists
         const existingUser = await Creden.findOne({ email });
@@ -42,7 +42,7 @@ export async function register(req, res) {
         }
 
         // Create and save new user
-        const newUser = new Creden({ name, email, password });
+        const newUser = new Creden({ name, notepool, email, password });
         const savedUser = await newUser.save();
 
         return res.status(201).json({ message: "User registered successfully", user: savedUser }); // 201 Created
@@ -61,6 +61,17 @@ export async function getnote(req, res)  {
     } catch (error) {
         console.error("ERROR IN GETNOTE CONTROLLER",error);
         res.status(500).json({message : "SERVER ERROR"});
+    }
+}
+
+export async function getallnote(req , res)   {
+    try {
+        const notepool = req.user && req.user.notepool ? req.user.notepool : null;
+        const notes = await Note.find({ notepool }).sort({createdAt: -1});
+        res.status(200).json(notes);
+    } catch (error) {
+        console.error("ERROR IN GETALL NOTE CONTROLLER",error);
+        res.status(500).json({message: "SERVER ERROR"});
     }
 }
 
@@ -84,7 +95,8 @@ export async function postnote(req, res)  {
         if (!email) {
             return res.status(401).json({ message: "UNAUTHORIZED: NO EMAIL IN TOKEN" });
         }
-        const note = new Note({ email, title, content });
+        const notepool = req.user && req.user.notepool ? req.user.notepool : null;
+        const note = new Note({ email, notepool, title, content });
         console.log("NEW NOTE", note);
         const savednote = await note.save();
         res.status(201).json(savednote);

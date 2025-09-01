@@ -5,6 +5,9 @@ const noteSchema = new mongoose.Schema(
         "type" : String,
         "required" : true,
     },
+    notepool : {
+        "type" : String,
+    },
     title : { 
         "type" : String,
         "required" : true,

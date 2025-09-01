@@ -1,10 +1,12 @@
-import { delnote, getnote, getonenote, postnote, putnote } from '../controllers/notecontroller.js';
+import { delnote, getnote, getonenote, postnote, putnote, getallnote } from '../controllers/notecontroller.js';
 
 import express from "express";
 import { authenticateToken } from '../middleware/auth.js';
 const router = express.Router();
 
 router.get("/",authenticateToken,getnote);
+
+router.get("/allnote",authenticateToken,getallnote);
 
 router.get("/:id",getonenote);
 

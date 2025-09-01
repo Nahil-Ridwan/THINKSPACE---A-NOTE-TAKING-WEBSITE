@@ -5,17 +5,35 @@ import  api from "../lib/axios";
 import NoteCard from "../components/NoteCard";
 import NotesNotFound from "../components/NotesNotFound";
 import toast from 'react-hot-toast';
+import {jwtDecode} from "jwt-decode";
 
 const HomePage = () => {
   const [IsRateLimited, setIsRateLimited] = useState(false);
   const [notes,setNotes] = useState([]);
   const [loading,setLoading] = useState(true);
-
+  const [showallnote,setShowAllNote] = useState(() => {
+    const stored = localStorage.getItem("showallnote");
+    return stored === "true";
+  });
+  const [user,setUser] = useState(null);
+  
+  const token = localStorage.getItem('token');
+  
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const fetchnotes = async () => {
+    if(token) {
       try {
-        const res = await api.get("/notes", {
+        const decoded = jwtDecode(token);
+        setUser(decoded);
+      } catch (e) {
+        setUser(null);
+      }
+    }
+  },[token]);
+  
+  const fetchnotes = async () => {
+      try {
+        const endpoint = showallnote ? "/notes/allnote" : "/notes";
+        const res = await api.get(endpoint, {
           headers: { Authorization: `Bearer ${token}` }
         });
         console.log(res.data);
@@ -32,12 +50,23 @@ const HomePage = () => {
         setLoading(false);
       }
     };
+
+
+  useEffect(() => {
     fetchnotes();
-  },[]);
+  },[showallnote]);
+
+  const toggle = () => {
+    setShowAllNote(prev => {
+      const newvalue = !prev;
+      localStorage.setItem("showallnote",newvalue);
+      return newvalue;
+    });
+  };
 
   return (
     <div className=" flex flex-col min-h-screen">
-      <Navbar/>
+      <Navbar toggle = {toggle} showallnote = {showallnote}/>
 
       {IsRateLimited && <RateLimitUI />}
       <div className="max-w-7xl mx-auto p-4 mt-6 rounded-3xl">
@@ -49,7 +78,7 @@ const HomePage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-16 pr-16">
               {notes.map((note,index) => (
                 <div>
-                  <NoteCard key={index} note={note} setNotes={setNotes}/>
+                  <NoteCard key={index} note={note} setNotes={setNotes} user={user} showallnote = {showallnote}/>
                 </div>
               ))}
             </div>
