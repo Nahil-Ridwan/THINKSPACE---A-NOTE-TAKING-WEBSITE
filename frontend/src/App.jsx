@@ -1,11 +1,10 @@
-import React from 'react'
+
 import {Route, Routes} from "react-router";
 import "./background.css"
 
 import HomePage from "./pages/HomePage.jsx";
 import Createpage from "./pages/CreatePage";
 import NoteDetailPage from "./pages/NoteDetailPage";
-import toast from "react-hot-toast";
 import LoginPage from './pages/LoginPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 const App = () => {

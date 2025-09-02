@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react"
+import { useState,useEffect } from "react"
 import { ArrowLeftIcon } from "lucide-react";
 import {Link, useNavigate} from "react-router";
 import toast from "react-hot-toast";
@@ -10,8 +10,8 @@ const CreatePage = () => {
   const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const handleSubmit = async () => {
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if(!title.trim() || !content.trim())
     {
       toast.error("FILL ALL FIELDS");
@@ -36,7 +36,7 @@ const CreatePage = () => {
   }
 
   // HOTKEY FOR SUBMIT
-  useEffect(() => {
+  /*useEffect(() => {
       const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
           handleSubmit();
@@ -46,7 +46,7 @@ const CreatePage = () => {
       window.addEventListener('keydown', handleKeyDown);
       return () => window.removeEventListener('keydown', handleKeyDown);
     }, [handleSubmit]);
-
+  */
     // HOTKEY TO BACK TO HOMEPAGE
     useEffect(() => {
         const handleKeyDown = (e) => {

@@ -4,6 +4,7 @@ import api from "../lib/axios";
 import toast from "react-hot-toast";
 import { LoaderIcon, Trash2Icon, ArrowLeftIcon } from 'lucide-react';
 import {Link} from "react-router"
+import { jwtDecode } from 'jwt-decode';
 
 const NoteDetailPage = () => {
   const [note,setNote] = useState(null);
@@ -50,7 +51,7 @@ const NoteDetailPage = () => {
   //HOTKEY FOR DELETE
   useEffect(() => {
   const handleKeyDown = (e) => {
-    if (e.key === 'Delete') {
+    if (e.key === 'Delete' && email === note.email) {
       handleDelete();
     }
   };
@@ -83,10 +84,27 @@ const NoteDetailPage = () => {
     }
   }
 
+  const [user,setUser] = useState(null);
+    
+  const token = localStorage.getItem('token');
+    
+  useEffect(() => {
+    if(token) {
+      try {
+         const decoded = jwtDecode(token);
+         setUser(decoded);
+       } catch (e) {
+         setUser(null);
+       }
+    }
+  },[token]);
+
+  const email = user && user.email ? user.email : null;
+
   // HOTKEY FOR SAVE
-    useEffect(() => {
+/*    useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && email === note.email) {
         handleSave();
       }
     };
@@ -94,7 +112,7 @@ const NoteDetailPage = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleSave]);
-
+*/
   //HOTKEY TO BACK TO HOMEPAGE
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -128,7 +146,7 @@ const NoteDetailPage = () => {
               <ArrowLeftIcon className="h-5 w-5"/>
                BACK TO NOTES
            </Link>
-           <button onClick={handleDelete} className="btn btn-error btn-outline">
+           <button onClick={handleDelete} disabled={email !== note.email} className="btn btn-error btn-outline">
              <Trash2Icon className="h-5 w-5"/>
              DELETE NOTE
            </button>
@@ -158,7 +176,7 @@ const NoteDetailPage = () => {
                     onChange={(e) => setNote({...note,content:e.target.value})}/>
                 </div>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary " disabled={saving} onClick={handleSave}>
+                  <button className="btn btn-primary " disabled={saving || email !== note.email} onClick={handleSave}>
                       {saving ? "SAVING..." : "SAVE CHANGES"}
                   </button>
                 </div>
