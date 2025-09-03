@@ -24,21 +24,24 @@ const NoteCard = ({note, setNotes, user, showallnote}) => {
     }
     const email = user && user.email ? user.email : null;
     const isowner = email === note.email;
+    const notepool = note.notepool;
   return (
     <Link to={`/note/${note._id}`}
     className={`card backdrop-blur-md shadow-lg borderrounded-xl hover:shadow-lg transition-all duration-200 border-t-4 border-solid w-[22rem] ${isowner && showallnote ? 'border-[#63e89b]' : 'border-[#ff6a00]'} `}
     >
         <div className="card-body bg-black/15 backdrop-blur-md shadow-lg border border-white/20 rounded-xl h-56">
-            <div className="flex justify-center w-full">
+            <div className="flex justify-center w-full ">
               <h3 className={`card-title ${isowner && showallnote ? 'text-[#72d99d]' : 'text-[#fe8630]'} text-center`}>{note.title}</h3>
             </div>
             <p className="text-base-content/70 line-clamp-3 whitespace-pre-line">{note.content}</p>
-            <div className="card-actions justify-between items-center mt-4">
+            <div className="card-actions justify-between items-center mt-4 ">
                 <span className="text-sm text-base-content/60">
                     {formatDate(new Date(note.createdAt))}
                 </span>
-                <div className="flex items-center gap-1">
-                    { isowner && <PenSquareIcon className="size-4"/> }
+    
+                <div className="flex items-center gap-1 ">
+                   { !showallnote && <span className='pr-2 text-sm text-base-content/60'>{notepool}</span>}
+                   { isowner && <PenSquareIcon className="size-4"/> }
                    <button className="btn btn-ghost btn-xs text-error" 
                     onClick={(e) => isowner && handleDelete(e, note._id)}
                     disabled = {!isowner}

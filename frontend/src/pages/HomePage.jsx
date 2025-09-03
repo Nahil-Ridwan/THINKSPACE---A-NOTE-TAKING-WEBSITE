@@ -66,7 +66,7 @@ const HomePage = () => {
 
   return (
     <div className=" flex flex-col min-h-screen">
-      <Navbar toggle = {toggle} showallnote = {showallnote}/>
+      <Navbar toggle = {toggle} user={user} showallnote = {showallnote}/>
 
       {IsRateLimited && <RateLimitUI />}
       <div className="max-w-7xl mx-auto p-4 mt-6 rounded-3xl">

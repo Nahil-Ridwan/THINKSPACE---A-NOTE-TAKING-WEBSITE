@@ -1,4 +1,4 @@
-import { login, register } from '../controllers/notecontroller.js';
+import { login, register } from '../controllers/usercontroller.js';
 import { authenticateToken } from '../middleware/auth.js';
 import express from "express";
     

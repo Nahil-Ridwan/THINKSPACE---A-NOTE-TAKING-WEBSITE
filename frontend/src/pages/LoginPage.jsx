@@ -1,5 +1,3 @@
-
-
 import { useState,useEffect } from 'react';
 import {Link,useNavigate} from "react-router";
 import  toast from 'react-hot-toast';
@@ -10,6 +8,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
+  const [notepool, setNotepool] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ export default function LoginPage() {
     
     // Login process: do NOT send Authorization header for login
     try {
-      const loginSuccess = await api.post("/credens/login", { email, password });
+      const loginSuccess = await api.post("/credens/login", { email, notepool, password });
       if (loginSuccess.status === 200) {
         toast.success('LOGIN SUCCESSFUL');
         // Save token to localStorage or state for future requests
@@ -85,6 +84,26 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-5 pr-3 py-3  bg-black/5 backdrop-blur-md shadow-lg border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
                   placeholder="ENTER YOUR EMAIL"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="notepool" className="block text-sm font-medium text-primary mb-2">
+                POOL NAME
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ri-mail-line text-gray-400 w-5 h-5 flex items-center justify-center"></i>
+                </div>
+                <input
+                  id="notepool"
+                  name="notepool"
+                  type="notepool"
+                  value={notepool}
+                  onChange={(e) => setNotepool(e.target.value)}
+                  className="w-full pl-5 pr-3 py-3  bg-black/5 backdrop-blur-md shadow-lg border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
+                  placeholder="ENTER POOL NAME (OPTIONAL)"
                 />
               </div>
             </div>

@@ -1,5 +1,3 @@
-
-
 import { useState } from 'react';
 import {Link, useNavigate} from "react-router";
 import  toast from 'react-hot-toast';
@@ -95,7 +93,7 @@ export default function SignUpPage() {
                   value={notepool}
                   onChange={(e) => setNotepool(e.target.value)}
                   className="w-full pl-5 pr-3 py-3  bg-black/5 backdrop-blur-md shadow-lg border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
-                  placeholder="ENTER YOUR POOL NAME"
+                  placeholder="ENTER POOL NAME (OPTIONAL)"
                 />
               </div>
             </div>
