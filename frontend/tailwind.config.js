@@ -11,6 +11,6 @@ export default {
   },
   plugins: [daisyui],
   daisyui :{
-     themes : ["sunset","forest"],
+     themes : ["sunset"],
   },
 };

@@ -8,6 +8,10 @@ const CreatePage = () => {
   const[title,setTitle] = useState("");
   const [content,setContent] = useState("");
   const [loading,setLoading] = useState(false);
+  const [showallnote,setShowAllNote] = useState(() => {
+      const stored = localStorage.getItem("showallnote");
+      return stored === "true";
+    });
 
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -21,7 +25,8 @@ const CreatePage = () => {
     try {
       const token = localStorage.getItem('token');
       await api.post("/notes", { title, content }, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}`,
+        'x-showallnote' : showallnote }
       });
       toast.success("NOTE CREATED");
       navigate("/homepage");
@@ -70,7 +75,7 @@ const CreatePage = () => {
           </Link>
           <div className="card bg-black/15 backdrop-blur-md shadow-lg border border-white/10 rounded-xl">
               <div className="card-body">
-                  <h2 className="card-title text-2xl mb-4 text-primary">CREATE NEW NOTE</h2>
+                  <h2 className="card-title text-2xl font-bold mb-4 text-primary">CREATE NEW NOTE</h2>
                   <form onSubmit={handleSubmit}>
                     <div className="form-control mb-4">
                         <label className="label">

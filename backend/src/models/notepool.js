@@ -1,18 +1,17 @@
 import mongoose from "mongoose";
-// CREDEN
-const credenSchema = new mongoose.Schema(
+// NOTEPOOL
+const notepoolSchema = new mongoose.Schema(
 {
-    name : {
-        "type" : String,
-        "required" : true,
-    },
-    notepool : {
-        "type" : [String],
-    },
     email : { 
         "type" : String,
         "required" : true,
     },
+
+    notepool : {
+        "type" : String,
+        "required" : true,
+    },
+    
     password : {
         "type" : String,
         "required" : true,
@@ -22,5 +21,5 @@ const credenSchema = new mongoose.Schema(
 {timestamps : true} // CREATED AND UPSATED
 );
 
-const Creden = mongoose.model("Creden",credenSchema);
-export { Creden };
+const Notepool = mongoose.model("Notepool",notepoolSchema);
+export { Notepool };

@@ -15,15 +15,21 @@ export async function getnote(req, res)  {
     }
 }
 
-export async function getallnote(req , res)   {
-    try {
-        const notepool = req.user && req.user.notepool ? req.user.notepool : null;
-        const notes = await Note.find({ notepool }).sort({createdAt: -1});
-        res.status(200).json(notes);
-    } catch (error) {
-        console.error("ERROR IN GETALL NOTE CONTROLLER",error);
-        res.status(500).json({message: "SERVER ERROR"});
+export async function getallnote(req, res) {
+  try {
+    const notepool = req.user?.notepool;
+
+    if (!notepool) {
+      return res.status(400).json({ message: "Notepool not specified in token" });
     }
+
+    const notes = await Note.find({ notepool }).sort({ createdAt: -1 });
+
+    res.status(200).json(notes);
+  } catch (error) {
+    console.error("ERROR IN GETALL NOTE CONTROLLER", error);
+    res.status(500).json({ message: "SERVER ERROR" });
+  }
 }
 
 export async function getonenote(req, res)   {
@@ -40,13 +46,14 @@ export async function getonenote(req, res)   {
 
 export async function postnote(req, res)  {
     try {
+        const showallnote = req.headers['x-showallnote'] === "true";
         const { title, content } = req.body;
         // req.user may be the payload object, or { email: ... } if set by jwt.verify
         const email = req.user && req.user.email ? req.user.email : null;
         if (!email) {
             return res.status(401).json({ message: "UNAUTHORIZED: NO EMAIL IN TOKEN" });
         }
-        const notepool = req.user && req.user.notepool ? req.user.notepool : null;
+        const notepool = req.user && req.user.notepool && showallnote ? req.user.notepool : null;
         const note = new Note({ email, notepool, title, content });
         console.log("NEW NOTE", note);
         const savednote = await note.save();

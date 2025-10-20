@@ -3,6 +3,8 @@ import {Link,useNavigate} from "react-router";
 import  toast from 'react-hot-toast';
 import { Eye } from "lucide-react";
 import api from "../lib/axios";
+import { Package } from 'lucide-react';
+import MainNavbar from '../components/MainNavbar';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +35,10 @@ export default function LoginPage() {
         toast.error("WRONG PASSWORD");
       } else if (status === 404) {
         toast.error("USER NOT FOUND");
-      } else {
+      } else if (status === 405) {
+        toast.error("NOT REGISTERED IN POOL")
+      }
+        else {
         toast.error("SERVER ERROR");
       }
       console.error("ERROR IN LOGIN CONTROLLER", error);
@@ -50,6 +55,14 @@ export default function LoginPage() {
         e.preventDefault();
         handleSubmit(e);
       }
+      if (e.altKey && e.key.toLowerCase() === 'n') {
+        e.preventDefault();
+        navigate("/createpool");
+      }
+      if (e.altKey && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        navigate("/joinpool");
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -58,16 +71,15 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col min-h-screen justify-center">
+      <MainNavbar/>
       <div className="flex flex-col w-full max-w-md space-y-8 justify-center items-center my-auto mx-auto px-4">
-        {/* Logo */}
-        <div className="text-center">
-          <h1 className="text-6xl font-bold font-mono text-primary tracking-tight pt-16">THOUGHTSPACE</h1>
-        </div>
+        
 
         {/* Login Form */}
-        <div className="w-full p-8 rounded-xl card bg-black/20 backdrop-blur-md shadow-lg border border-white/10">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="w-full p-8 rounded-xl card bg-black/20 backdrop-blur-md shadow-lg border border-white/10 mb-5">
+          <form onSubmit={handleSubmit} className="space-y-3">
             <div>
+              <h1 className="text-4xl mb-6 font-bold  text-primary">LOGIN</h1>
               <label htmlFor="email" className="block text-sm font-medium text-primary mb-2">
                 EMAIL ADDRESS
               </label>
@@ -81,7 +93,7 @@ export default function LoginPage() {
                   type="email"
                   required
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value.toLowerCase())}
                   className="w-full pl-5 pr-3 py-3  bg-black/5 backdrop-blur-md shadow-lg border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
                   placeholder="ENTER YOUR EMAIL"
                 />
@@ -107,6 +119,7 @@ export default function LoginPage() {
                 />
               </div>
             </div>
+            
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-primary mb-2">
@@ -152,7 +165,7 @@ export default function LoginPage() {
                 FORGOT PASSWORD?
               </Link>
             </div>
-
+  
             <button
               type="submit"
               disabled={isLoading}
@@ -168,6 +181,7 @@ export default function LoginPage() {
                 'SIGN IN'
               )}
             </button>
+            
           </form>
 
 
@@ -181,8 +195,9 @@ export default function LoginPage() {
             </p>
           </div>
         </div>
+    
       </div>
-      <footer className="bg-base-300 text-center py-4 mt-auto">
+      <footer className="bg-base-300 text-center py-4 mt-9">
           <p className="text-sm text-primary">
            📬 CONTACT: <a href="mailto:nahilpp@gmail.com" className="underline hover:text-primary">nahilpp@gmail.com</a>
          </p>

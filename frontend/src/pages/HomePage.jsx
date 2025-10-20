@@ -34,7 +34,7 @@ const HomePage = () => {
       try {
         const endpoint = showallnote ? "/notes/allnote" : "/notes";
         const res = await api.get(endpoint, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}`}
         });
         console.log(res.data);
         setNotes(res.data);                           //FETCH SUCCESS

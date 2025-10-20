@@ -9,11 +9,12 @@ const Navbar = ({toggle, user, showallnote}) => {
 
   useEffect(() => {
     const handleHotkey = (e) => {
-      if (e.key === 'n') {
+      if (e.altKey && e.key.toLowerCase() === 'n') {
         e.preventDefault();
         navigate('/create');
       }
-      else if (e.key === 's' && notepool) {
+      else if (e.altKey && e.key.toLowerCase() === 'p' && notepool) {
+
         e.preventDefault();
         toggle();
       }
@@ -27,12 +28,12 @@ const Navbar = ({toggle, user, showallnote}) => {
         <div className="mx-auto max-w-6xl pr-4 py-4">
             <div className="flex items-center justify-between">
               <div className='flex items-start gap-2'>
-                <Link to={"/"} className ="btn btn-ghost" onClick={() => { 
+                <Link to={"/login"} className ="btn btn-ghost"  onClick={() => { 
                       localStorage.removeItem("showallnote");
                       console.log(showallnote)
                       localStorage.removeItem("token");}}>
                         
-                    <LogOut className="size-7 transform scale-x-[-1] "/>
+                    <LogOut className="size-7 transform scale-x-[-1]"/>
                 </Link>
                 <h1 className="text-3xl font-bold font-mono text-primary tracking-tight pt-1">{ showallnote ? `THOUGHTSPACE - ${notepool}` : "THOUGHTSPACE" }</h1>
              </div>
@@ -41,19 +42,21 @@ const Navbar = ({toggle, user, showallnote}) => {
                         {showallnote ? (
                           <>
                           <File className='scale-[0.75]'/>
-                          MY NOTE(S)
+                          MY NOTES
                           </>
                         ) : (
                           <>
                           <Package className='size-5'/>
-                          POOL NOTE(S)
+                          POOL NOTES
                           </>
                         )}
                     </button>
+                    
                     <Link to={"/create"} id="create" className="btn btn-primary">
                         <PlusIcon className="size-5"/>
-                        <span>NEW NOTE(N)</span>
+                        <span>{showallnote ? "POST TO POOL" : "NEW NOTE"}</span>
                     </Link>
+                    
 
                 </div>
             </div>
