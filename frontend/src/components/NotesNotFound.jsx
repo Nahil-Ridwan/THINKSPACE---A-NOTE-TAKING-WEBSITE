@@ -11,7 +11,7 @@ const NotesNotFound = () => {
       <p className="text-base-content/70">
         READY TO ORGANIZE YOUR THOUGHTS? CREATE YOUR FIRST NOTE TO GET STARTED ON YOUR JOURNEY.
       </p>
-      <Link to="/create" className="btn btn-primary">
+      <Link to="/cwuh289bn82hn0qihcf802fhcne20ve832-create=true" className="btn btn-primary">
         CREATE YOUR FIRST NOTE
       </Link>
     </div>

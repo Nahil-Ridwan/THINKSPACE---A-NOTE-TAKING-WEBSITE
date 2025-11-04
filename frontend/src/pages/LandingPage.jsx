@@ -8,19 +8,19 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const register = async (e) => {
-    navigate("/register")
+    navigate("/nun3485u03nvjhefngf38u4jmcf398utj-register=true")
   }
   const login = async (e) => {
-    navigate("/login");
+    navigate("/hbicvier943y598hhf7492edfh3984ru-login=true");
   }
   const hotkey = async (e) => {
-    navigate("/hotkey");
+    navigate("/bjj36bb378df3983fhnbf3i8yfncdjh393-hotkey=true");
   }
   const about = async (e) => {
-    navigate("/about")
+    navigate("/bcwi92n283n28unx023uj0cx023jcxn02h-about=true")
   }
   const contact = async (e) => {
-    navigate("/contact")
+    navigate("/hbdciu2y893hnc982h39cbn82vg3cvxwc-contact=true")
   }
 
   return (

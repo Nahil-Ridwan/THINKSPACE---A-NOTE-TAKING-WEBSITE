@@ -11,7 +11,7 @@ const Navbar = ({toggle, user, showallnote}) => {
     const handleHotkey = (e) => {
       if (e.altKey && e.key.toLowerCase() === 'n') {
         e.preventDefault();
-        navigate('/create');
+        navigate('/cwuh289bn82hn0qihcf802fhcne20ve832-create=true');
       }
       else if (e.altKey && e.key.toLowerCase() === 'p' && notepool) {
 
@@ -28,7 +28,7 @@ const Navbar = ({toggle, user, showallnote}) => {
         <div className="mx-auto max-w-6xl pr-4 py-4">
             <div className="flex items-center justify-between">
               <div className='flex items-start gap-2'>
-                <Link to={"/login"} className ="btn btn-ghost"  onClick={() => { 
+                <Link to={"/hbicvier943y598hhf7492edfh3984ru-login=true"} className ="btn btn-ghost"  onClick={() => { 
                       localStorage.removeItem("showallnote");
                       console.log(showallnote)
                       localStorage.removeItem("token");}}>
@@ -52,7 +52,7 @@ const Navbar = ({toggle, user, showallnote}) => {
                         )}
                     </button>
                     
-                    <Link to={"/create"} id="create" className="btn btn-primary">
+                    <Link to={"/cwuh289bn82hn0qihcf802fhcne20ve832-create=true"} id="create" className="btn btn-primary">
                         <PlusIcon className="size-5"/>
                         <span>{showallnote ? "POST TO POOL" : "NEW NOTE"}</span>
                     </Link>

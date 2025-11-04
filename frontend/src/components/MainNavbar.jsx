@@ -13,7 +13,7 @@ const MainNavbar = () => {
              </div>
                 <div className="flex items-center gap-4 min-w-[240px] justify-end">
   <Link
-  to="/createpool"
+  to="/bued73bihdebc738bichb39hbcih3b993-createpool=true"
   className="group flex items-center justify-start bg-primary rounded-xl overflow-hidden transition-all duration-300 w-12 h-12 hover:w-44 pl-3.5 py-2"
   >
   <div className="flex items-center justify-center w-6 h-6">
@@ -25,7 +25,7 @@ const MainNavbar = () => {
 </Link>
 
   <Link
-  to="/joinpool"
+  to="/hb238frnbc3984enc93848bncv398jh4bc9348-joinpool=true"
   className="group flex items-center justify-start bg-primary rounded-xl overflow-hidden transition-all duration-300 w-12 h-12 hover:w-44 pl-3.5 py-2"
 >
   <div className="flex items-center justify-center w-6 h-6">

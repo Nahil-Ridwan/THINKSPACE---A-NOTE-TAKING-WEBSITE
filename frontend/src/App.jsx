@@ -18,19 +18,19 @@ const App = () => {
   return (
     <div className="background">
       <Routes>
-        <Route path = "/login" element={<LoginPage/>}/>
-        <Route path = "/register" element={<SignUpPage/>}/>
+        <Route path = "/hbicvier943y598hhf7492edfh3984ru-login=true" element={<LoginPage/>}/>
+        <Route path = "/nun3485u03nvjhefngf38u4jmcf398utj-register=true" element={<SignUpPage/>}/>
 
-        <Route path = "/joinpool" element={<JoinPool/>}/>
-        <Route path = "/createpool" element={<CreatePool/>}/>
+        <Route path = "/hb238frnbc3984enc93848bncv398jh4bc9348-joinpool=true" element={<JoinPool/>}/>
+        <Route path = "/bued73bihdebc738bichb39hbcih3b993-createpool=true" element={<CreatePool/>}/>
 
         <Route path = "/" element={<LandingPage/>}/>
-        <Route path = "/hotkey" element={<HotkeyPage/>}/>
-        <Route path = "/about" element={<AboutPage/>}/>
-        <Route path = "/contact" element={<ContactPage/>}/>
+        <Route path = "/bjj36bb378df3983fhnbf3i8yfncdjh393-hotkey=true" element={<HotkeyPage/>}/>
+        <Route path = "/bcwi92n283n28unx023uj0cx023jcxn02h-about=true" element={<AboutPage/>}/>
+        <Route path = "/hbdciu2y893hnc982h39cbn82vg3cvxwc-contact=true" element={<ContactPage/>}/>
 
-        <Route path ="/homepage" element={<HomePage/>}/>
-        <Route path ="/create" element={<Createpage/>}/>
+        <Route path ="/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true" element={<HomePage/>}/>
+        <Route path ="/cwuh289bn82hn0qihcf802fhcne20ve832-create=true" element={<Createpage/>}/>
         <Route path ="/note/:id" element={<NoteDetailPage/>}/>
       </Routes> 
     </div>

@@ -41,7 +41,7 @@ const NoteDetailPage = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success("NOTE DELETED")
-      navigate("/homepage")
+      navigate("/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true")
     } catch (error) {
       console.log("error in the handledelete at NoteDetailPage",error)
       toast.error("COULD'NT DELETE")
@@ -75,7 +75,7 @@ const NoteDetailPage = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success("CHANGES SAVED")
-      navigate("/homepage")
+      navigate("/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true")
     } catch (error) {
       console.log("error in handlesave", error)
       toast.error("CHNAGES NOT SAVED")
@@ -117,7 +117,7 @@ const NoteDetailPage = () => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        navigate("/homepage");
+        navigate("/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true");
       }
     };
 
@@ -142,7 +142,7 @@ const NoteDetailPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
          <div className="flex items-center justify-between mb-6">
-           <Link to="/homepage" className="btn btn-ghost">
+           <Link to="/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true" className="btn btn-ghost">
               <ArrowLeftIcon className="h-5 w-5"/>
                BACK TO NOTES
            </Link>

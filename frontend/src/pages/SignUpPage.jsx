@@ -22,11 +22,11 @@ export default function SignUpPage() {
       const response = await api.post("/credens",{name, notepool, email, password});
       if(response.status===200){
         toast.success("REGISTER SUCCESSFUL");
-        navigate("/login");
+        navigate("/hbicvier943y598hhf7492edfh3984ru-login=true");
       }
       else if(response.status === 201) {
         toast.error("USER ALREADY EXISTS")
-        navigate("/login");
+        navigate("/hbicvier943y598hhf7492edfh3984ru-login=true");
       }
       else{
         toast.error("REGISTER ERROR");
@@ -39,7 +39,7 @@ export default function SignUpPage() {
         else {
            console.error("ERROR IN REGISTER CONTROLLER", error);
            toast.error("ERROR");
-           navigate("/login");
+           navigate("/hbicvier943y598hhf7492edfh3984ru-login=true");
         }
     }
     finally {
@@ -50,7 +50,7 @@ export default function SignUpPage() {
   useEffect(() => {
       const handleKeyDown = (e) => {
         if (e.key === 'n') {
-          navigate("/joinpool")
+          navigate("/hb238frnbc3984enc93848bncv398jh4bc9348-joinpool=true")
         }
       };
   
@@ -174,7 +174,7 @@ export default function SignUpPage() {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-500">
               ALREADY HAVE AN ACCOUNT?{' '}
-              <Link to={"/login"} className="text-primary hover:text-blue-500 font-medium cursor-pointer">
+              <Link to={"/hbicvier943y598hhf7492edfh3984ru-login=true"} className="text-primary hover:text-blue-500 font-medium cursor-pointer">
                 SIGN IN
               </Link>
             </p>

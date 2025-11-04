@@ -27,7 +27,7 @@ export default function LoginPage() {
         // Save token to localStorage or state for future requests
         const { token } = loginSuccess.data;
         localStorage.setItem('token', token);
-        navigate("/homepage");
+        navigate("/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true");
       }
     } catch (error) {
       const status = error.response?.status;
@@ -57,11 +57,11 @@ export default function LoginPage() {
       }
       if (e.altKey && e.key.toLowerCase() === 'n') {
         e.preventDefault();
-        navigate("/createpool");
+        navigate("/bued73bihdebc738bichb39hbcih3b993-createpool=true");
       }
       if (e.altKey && e.key.toLowerCase() === 'j') {
         e.preventDefault();
-        navigate("/joinpool");
+        navigate("/hb238frnbc3984enc93848bncv398jh4bc9348-joinpool=true");
       }
     };
 
@@ -189,7 +189,7 @@ export default function LoginPage() {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
               DON'T HAVE AN ACCOUNT?{' '}
-              <Link to={"/register"} className="text-primary hover:text-blue-500 font-medium cursor-pointer">
+              <Link to={"/nun3485u03nvjhefngf38u4jmcf398utj-register=true"} className="text-primary hover:text-blue-500 font-medium cursor-pointer">
                 SIGN UP
               </Link>
             </p>

@@ -24,11 +24,11 @@ export default function JoinPool() {
       
       if(joined.status === 201) {
         toast.success("JOINED NOTEPOOL SUCCESFULLY")
-        navigate("/login");
+        navigate("/hbicvier943y598hhf7492edfh3984ru-login=true");
       }
       else if(joined.status === 202) {
         toast.error("USER ALREADY REGISTERED")
-        navigate("/login");
+        navigate("/hbicvier943y598hhf7492edfh3984ru-login=true");
       }
       else{
         toast.error("REGISTER ERROR");
@@ -172,7 +172,7 @@ export default function JoinPool() {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
               CREATE YOUR OWN POOL :{' '}
-              <Link to={"/createpool"} className="text-primary hover:text-blue-500 font-medium cursor-pointer">
+              <Link to={"/bued73bihdebc738bichb39hbcih3b993-createpool=true"} className="text-primary hover:text-blue-500 font-medium cursor-pointer">
                 CREATE
               </Link>
             </p>

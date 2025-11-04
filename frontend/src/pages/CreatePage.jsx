@@ -29,7 +29,7 @@ const CreatePage = () => {
         'x-showallnote' : showallnote }
       });
       toast.success("NOTE CREATED");
-      navigate("/homepage");
+      navigate("/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true");
     } catch (error) {
       console.log("error creating Note", error);
       if (error.response && error.response.status === 429) {
@@ -56,7 +56,7 @@ const CreatePage = () => {
     useEffect(() => {
         const handleKeyDown = (e) => {
           if (e.key === 'Escape') {
-            navigate("/homepage");
+            navigate("/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true");
           }
         };
     
@@ -69,7 +69,7 @@ const CreatePage = () => {
     <div className="min-h-screen flex items-center">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto ">
-          <Link to={"/homepage"} className ="btn btn-ghost mb-6">
+          <Link to={"/nciu32983hfcb938vcbn93rfbn938b33f3r3-homepage=true"} className ="btn btn-ghost mb-6">
              <ArrowLeftIcon className="size-5"/>
              BACK TO NOTES
           </Link>

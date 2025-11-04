@@ -23,7 +23,7 @@ export default function CreatePool() {
       const created = await api.post("/pools", { email, notepool, password });
       if (created.status === 200) {
         toast.success('POOL CREATED SUCCESSFULLY');
-        navigate("/joinpool");
+        navigate("/hb238frnbc3984enc93848bncv398jh4bc9348-joinpool=true");
       }
       if(created.status === 201) {
         toast.error("POOL ALREADY EXISTS")
@@ -33,7 +33,7 @@ export default function CreatePool() {
         const status = error.response?.status;
         if(status === 404) {
           toast.error("USER NOT REGISTERED")
-          navigate("/register")
+          navigate("/nun3485u03nvjhefngf38u4jmcf398utj-register=true")
         } else {
           toast.error("SERVER ERROR");
         }
@@ -162,7 +162,7 @@ export default function CreatePool() {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
                DON'T HAVE AN ACCOUNT?{' '}
-              <Link to={"/register"} className="text-primary hover:text-blue-500 font-medium cursor-pointer">
+              <Link to={"/nun3485u03nvjhefngf38u4jmcf398utj-register=true"} className="text-primary hover:text-blue-500 font-medium cursor-pointer">
                 SIGN UP
               </Link>
             </p>
